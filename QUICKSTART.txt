@@ -1,0 +1,98 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                    OpenQuiz - Quick Start                         ║
+║                   Windows Setup (5 Minutes)                       ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+STEP 1: Install Node.js (One-Time Setup)
+────────────────────────────────────────────────────────────────────
+1. Go to: https://nodejs.org/
+2. Download the LTS version (green button on left)
+3. Run the installer → Click "Next" until finished
+4. Restart your computer
+
+STEP 2: Get the Code
+────────────────────────────────────────────────────────────────────
+Option A - Download ZIP:
+  1. Go to: https://github.com/nwrussi/openQuiz
+  2. Click green "Code" button → "Download ZIP"
+  3. Extract to a folder
+
+Option B - Use Git:
+  git clone https://github.com/nwrussi/openQuiz.git
+  cd openQuiz
+
+STEP 3: Open Command Prompt in Project Folder
+────────────────────────────────────────────────────────────────────
+1. Open File Explorer
+2. Navigate to the openQuiz folder
+3. Click the address bar, type "cmd", press Enter
+
+STEP 4: Install Dependencies (First Time Only)
+────────────────────────────────────────────────────────────────────
+In Command Prompt, type:
+
+  npm install
+
+Wait 1-2 minutes for packages to download.
+
+STEP 5: Start the App
+────────────────────────────────────────────────────────────────────
+In Command Prompt, type:
+
+  npm run dev
+
+You'll see:
+  ➜  Local:   http://localhost:3000/
+
+STEP 6: Open in Browser
+────────────────────────────────────────────────────────────────────
+Open your web browser and go to:
+
+  http://localhost:3000
+
+🎉 You should see OpenQuiz!
+
+STEP 7: When Done
+────────────────────────────────────────────────────────────────────
+In Command Prompt window:
+  • Press Ctrl + C to stop the server
+  • Type Y when asked to terminate
+  • Close the window
+
+═══════════════════════════════════════════════════════════════════
+
+TROUBLESHOOTING:
+
+"npm is not recognized"
+  → Install Node.js from https://nodejs.org/ and restart computer
+
+"Port 3000 already in use"
+  → Use different port: npm run dev -- --port 3001
+  → Open: http://localhost:3001
+
+Blank white page
+  → Press F12 in browser, check Console for errors
+  → Try: npm run build && npm run preview
+
+Changes not showing
+  → Press Ctrl + Shift + R to refresh browser
+
+═══════════════════════════════════════════════════════════════════
+
+COMMON COMMANDS:
+
+npm install          Install dependencies (first time)
+npm run dev          Start development server
+npm run build        Create production build
+npm run preview      Preview production build
+Ctrl + C             Stop the server
+
+═══════════════════════════════════════════════════════════════════
+
+NEED MORE HELP?
+Read: WINDOWS_SETUP.md (detailed guide with screenshots)
+Issues: https://github.com/nwrussi/openQuiz/issues
+
+═══════════════════════════════════════════════════════════════════
+
+OpenQuiz - Free • Open Source • No Ads • Privacy-First

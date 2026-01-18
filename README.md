@@ -23,6 +23,10 @@ OpenQuiz is a modern flashcard learning platform designed to be:
 
 ## 🚀 Quick Start
 
+> **🪟 Windows Users:** See [WINDOWS_SETUP.md](WINDOWS_SETUP.md) for a complete step-by-step guide with troubleshooting!
+>
+> **⚡ Super Quick:** See [QUICKSTART.txt](QUICKSTART.txt) for 5-minute setup instructions.
+
 ### Prerequisites
 
 - Node.js 18+ and npm
