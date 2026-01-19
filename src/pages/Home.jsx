@@ -1,11 +1,46 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useGame } from '../context/GameContext'
 
 export default function Home() {
   const navigate = useNavigate()
+  const { joinGame } = useGame()
   const [hoveredCard, setHoveredCard] = useState(null)
+  const [gameCode, setGameCode] = useState('')
+  const [playerName, setPlayerName] = useState('')
+  const [isJoining, setIsJoining] = useState(false)
+  const [joinError, setJoinError] = useState('')
+  const [codeFocused, setCodeFocused] = useState(false)
+
+  const handleJoinGame = async (e) => {
+    e.preventDefault()
+    if (!gameCode.trim() || !playerName.trim()) {
+      setJoinError('Please enter both code and name')
+      return
+    }
+
+    try {
+      setIsJoining(true)
+      setJoinError('')
+      await joinGame(gameCode.toUpperCase(), playerName)
+      navigate('/lobby')
+    } catch (error) {
+      setJoinError(error.message || 'Failed to join game')
+    } finally {
+      setIsJoining(false)
+    }
+  }
 
   const gameModes = [
+    {
+      id: 'library',
+      title: 'My Library',
+      description: 'Create and manage your flashcard decks',
+      icon: '📚',
+      color: 'from-indigo-400 to-indigo-600',
+      path: '/library',
+      featured: true
+    },
     {
       id: 'flashcards',
       title: 'Flashcards',
@@ -55,6 +90,10 @@ export default function Home() {
           0% { background-position: -1000px 0; }
           100% { background-position: 1000px 0; }
         }
+        @keyframes pulse-ring {
+          0% { transform: scale(1); opacity: 1; }
+          100% { transform: scale(1.5); opacity: 0; }
+        }
         .fade-in {
           animation: fadeIn 0.6s ease-out forwards;
         }
@@ -65,6 +104,9 @@ export default function Home() {
           background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
           background-size: 1000px 100%;
           animation: shimmer 2s infinite;
+        }
+        .pulse-ring {
+          animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
       `}</style>
 
@@ -91,6 +133,93 @@ export default function Home() {
             {feature}
           </div>
         ))}
+      </div>
+
+      {/* JOIN GAME SECTION (Social Gateway) */}
+      <div className="w-full max-w-2xl mb-12 fade-in" style={{ animationDelay: '0.3s' }}>
+        <div className="relative bg-white/10 backdrop-blur-md rounded-3xl border-2 border-white/30 p-8 overflow-hidden">
+          {/* Decorative rings on focus */}
+          {codeFocused && (
+            <>
+              <div className="absolute inset-0 border-4 border-white/30 rounded-3xl pulse-ring" />
+              <div className="absolute inset-0 border-4 border-white/30 rounded-3xl pulse-ring" style={{ animationDelay: '0.5s' }} />
+            </>
+          )}
+
+          <div className="relative z-10">
+            <h2 className="text-3xl font-bold text-white mb-2 text-center">
+              Join a Live Session
+            </h2>
+            <p className="text-white/80 text-center mb-6">
+              Enter a game code to join your friends
+            </p>
+
+            <form onSubmit={handleJoinGame} className="space-y-4">
+              <div>
+                <input
+                  type="text"
+                  value={gameCode}
+                  onChange={(e) => setGameCode(e.target.value.toUpperCase())}
+                  onFocus={() => setCodeFocused(true)}
+                  onBlur={() => setCodeFocused(false)}
+                  placeholder="ENTER GAME CODE"
+                  maxLength={4}
+                  className="w-full text-center text-4xl font-black tracking-widest px-6 py-6 rounded-2xl border-4 border-transparent focus:border-blue-500 focus:ring-4 focus:ring-blue-500/50 transition-all bg-white text-gray-900 placeholder-gray-400 uppercase"
+                />
+              </div>
+
+              <div>
+                <input
+                  type="text"
+                  value={playerName}
+                  onChange={(e) => setPlayerName(e.target.value)}
+                  placeholder="Your Name"
+                  maxLength={20}
+                  className="w-full text-center text-xl px-6 py-4 rounded-2xl border-2 border-white/30 focus:border-white focus:ring-4 focus:ring-white/30 transition-all bg-white/20 text-white placeholder-white/50"
+                />
+              </div>
+
+              {joinError && (
+                <div className="bg-red-500/20 border-2 border-red-500/50 rounded-xl p-3 text-center">
+                  <p className="text-red-200 font-medium">{joinError}</p>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={isJoining || !gameCode.trim() || !playerName.trim()}
+                className={`
+                  w-full py-4 rounded-2xl font-bold text-xl transition-all transform
+                  ${isJoining || !gameCode.trim() || !playerName.trim()
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 hover:scale-105 shadow-lg hover:shadow-xl'
+                  }
+                  text-white
+                `}
+              >
+                {isJoining ? 'Joining...' : 'Join Game'}
+              </button>
+            </form>
+
+            <div className="mt-6 text-center">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-white/30"></div>
+                </div>
+                <div className="relative flex justify-center">
+                  <span className="bg-transparent px-4 text-white/60 text-sm font-medium">OR</span>
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => navigate('/library')}
+              className="mt-4 w-full py-4 rounded-2xl font-bold text-lg bg-white/20 hover:bg-white/30 text-white border-2 border-white/30 hover:border-white/50 transition-all"
+            >
+              📚 Host a Session from Your Library
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Game Mode Cards */}
