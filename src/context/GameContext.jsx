@@ -22,15 +22,15 @@ export const GameProvider = ({ children }) => {
 
   useEffect(() => {
     // Listen for room events
-    const handlePlayerJoined = ({ player, room }) => {
+    const handlePlayerJoined = ({ room }) => {
       setPlayers(room.players)
     }
 
-    const handlePlayerLeft = ({ playerId, room }) => {
+    const handlePlayerLeft = ({ room }) => {
       setPlayers(room.players)
     }
 
-    const handleGameStarted = ({ room }) => {
+    const handleGameStarted = () => {
       setGameState('playing')
     }
 

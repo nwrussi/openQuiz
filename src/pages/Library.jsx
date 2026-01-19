@@ -6,7 +6,7 @@ import { BookOpen, Plus, Trash2, Copy, Edit, ArrowLeft, Users } from 'lucide-rea
 
 export default function Library() {
   const navigate = useNavigate()
-  const { decks, isLoading, createDeck, deleteDeck, duplicateDeck, getDeck } = useLibrary()
+  const { decks, isLoading, createDeck, deleteDeck, duplicateDeck } = useLibrary()
   const { hostGame } = useGame()
   const [hoveredDeck, setHoveredDeck] = useState(null)
   const [deletingDeck, setDeletingDeck] = useState(null)
