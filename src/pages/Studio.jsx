@@ -177,11 +177,11 @@ export default function Studio() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="relative">
-            <div className="w-12 h-12 border-4 border-blue-200 rounded-full animate-spin border-t-blue-600" />
-            <div className="absolute inset-0 w-12 h-12 border-4 border-transparent rounded-full animate-ping border-t-blue-400 opacity-30" />
+            <div className="w-12 h-12 border-4 border-gray-200 rounded-full animate-spin border-t-[#00D9FF]" />
+            <div className="absolute inset-0 w-12 h-12 border-4 border-transparent rounded-full animate-ping border-t-[#00D9FF] opacity-30" />
           </div>
           <p className="text-gray-500 animate-pulse">Loading Studio...</p>
         </div>
@@ -196,7 +196,7 @@ export default function Studio() {
   const typography = TYPOGRAPHY[deck.theme.typography]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+    <div className="min-h-screen bg-white">
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(10px); }
@@ -235,7 +235,7 @@ export default function Studio() {
             <div className="w-px h-6 bg-gray-300" />
             <div>
               <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                <Sparkles size={20} className="text-blue-600" />
+                <Sparkles size={20} className="text-[#00D9FF]" />
                 The Studio
               </h1>
               <p className="text-sm text-gray-500">
@@ -249,7 +249,7 @@ export default function Studio() {
             className={`
               flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all duration-300
               ${hasUnsavedChanges
-                ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg'
+                ? 'bg-[#00D9FF] hover:bg-[#00c4e6] text-white shadow-md hover:shadow-lg'
                 : 'bg-gray-100 text-gray-400 cursor-not-allowed'
               }
             `}
@@ -292,7 +292,7 @@ export default function Studio() {
                 className={`
                   group relative flex items-center gap-2 p-3 rounded-lg cursor-pointer transition-all
                   ${selectedCardIndex === index
-                    ? 'bg-blue-50 border-2 border-blue-500'
+                    ? 'bg-[#00D9FF]/10 border-2 border-[#00D9FF]'
                     : 'bg-gray-50 border-2 border-transparent hover:border-gray-300'
                   }
                 `}
@@ -337,7 +337,7 @@ export default function Studio() {
               <h2 className="text-lg font-semibold text-gray-700">Live Preview</h2>
               <button
                 onClick={() => setIsFlipped(!isFlipped)}
-                className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
+                className="flex items-center gap-2 text-[#00D9FF] hover:text-blue-700 font-medium"
               >
                 <FlipHorizontal size={18} />
                 Flip Card
@@ -398,14 +398,14 @@ export default function Studio() {
               className={`
                 flex-1 px-4 py-3 font-medium transition-colors relative
                 ${activeTab === 'content'
-                  ? 'text-blue-600 bg-blue-50'
+                  ? 'text-[#00D9FF] bg-[#00D9FF]/10'
                   : 'text-gray-600 hover:text-gray-900'
                 }
               `}
             >
               Content
               {activeTab === 'content' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600" />
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#00D9FF]" />
               )}
             </button>
             <button
@@ -413,14 +413,14 @@ export default function Studio() {
               className={`
                 flex-1 px-4 py-3 font-medium transition-colors relative
                 ${activeTab === 'design'
-                  ? 'text-blue-600 bg-blue-50'
+                  ? 'text-[#00D9FF] bg-[#00D9FF]/10'
                   : 'text-gray-600 hover:text-gray-900'
                 }
               `}
             >
               Design
               {activeTab === 'design' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600" />
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#00D9FF]" />
               )}
             </button>
           </div>
@@ -440,7 +440,7 @@ export default function Studio() {
                       setIsFlipped(false)
                     }}
                     onFocus={() => setIsFlipped(false)}
-                    className="w-full border-2 border-gray-200 focus:border-blue-500 rounded-lg p-3 resize-none transition-colors"
+                    className="w-full border-2 border-gray-200 focus:border-[#00D9FF] rounded-lg p-3 resize-none transition-colors"
                     placeholder="Enter your question..."
                     rows={4}
                   />
@@ -454,7 +454,7 @@ export default function Studio() {
                     value={currentCard.back}
                     onChange={(e) => updateCard(selectedCardIndex, 'back', e.target.value)}
                     onFocus={() => setIsFlipped(true)}
-                    className="w-full border-2 border-gray-200 focus:border-blue-500 rounded-lg p-3 resize-none transition-colors"
+                    className="w-full border-2 border-gray-200 focus:border-[#00D9FF] rounded-lg p-3 resize-none transition-colors"
                     placeholder="Enter your answer..."
                     rows={4}
                   />
@@ -482,7 +482,7 @@ export default function Studio() {
                         className={`
                           w-full text-left px-4 py-3 rounded-lg border-2 transition-all
                           ${deck.theme.texture === key
-                            ? 'border-blue-500 bg-blue-50'
+                            ? 'border-[#00D9FF] bg-[#00D9FF]/10'
                             : 'border-gray-200 hover:border-gray-300'
                           }
                         `}
@@ -507,7 +507,7 @@ export default function Studio() {
                         className={`
                           w-full text-left px-4 py-3 rounded-lg border-2 transition-all ${config.class}
                           ${deck.theme.typography === key
-                            ? 'border-blue-500 bg-blue-50'
+                            ? 'border-[#00D9FF] bg-[#00D9FF]/10'
                             : 'border-gray-200 hover:border-gray-300'
                           }
                         `}

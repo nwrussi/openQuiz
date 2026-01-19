@@ -72,12 +72,8 @@ export default function Library() {
     return deck.cards?.length || 0
   }
 
-  const getThemeColor = (deck) => {
-    return deck.theme?.brandColor || '#3b82f6'
-  }
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 p-8">
+    <div className="min-h-screen bg-white p-8">
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(10px); }
@@ -91,7 +87,7 @@ export default function Library() {
           animation: fadeIn 0.4s ease-out forwards;
         }
         .shimmer {
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+          background: linear-gradient(90deg, transparent, rgba(0,217,255,0.2), transparent);
           background-size: 1000px 100%;
           animation: shimmer 2s infinite;
         }
@@ -103,13 +99,13 @@ export default function Library() {
           <div>
             <button
               onClick={() => navigate('/')}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-4"
+              className="flex items-center gap-2 text-gray-600 hover:text-black transition-colors mb-4"
             >
               <ArrowLeft size={20} />
               <span>Back to Home</span>
             </button>
-            <h1 className="text-4xl font-bold text-gray-900 flex items-center gap-3">
-              <BookOpen size={36} className="text-blue-600" />
+            <h1 className="text-4xl font-bold text-black flex items-center gap-3">
+              <BookOpen size={36} className="text-[#00D9FF]" />
               My Library
             </h1>
             <p className="text-gray-600 mt-2">
@@ -119,7 +115,7 @@ export default function Library() {
 
           <button
             onClick={handleCreateDeck}
-            className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
+            className="flex items-center gap-2 bg-[#00D9FF] hover:bg-[#00c4e6] text-black px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
           >
             <Plus size={20} />
             Create New Deck
@@ -131,8 +127,8 @@ export default function Library() {
           <div className="fade-in flex items-center justify-center py-20">
             <div className="flex flex-col items-center gap-4">
               <div className="relative">
-                <div className="w-12 h-12 border-4 border-blue-200 rounded-full animate-spin border-t-blue-600" />
-                <div className="absolute inset-0 w-12 h-12 border-4 border-transparent rounded-full animate-ping border-t-blue-400 opacity-30" />
+                <div className="w-12 h-12 border-4 border-gray-200 rounded-full animate-spin border-t-[#00D9FF]" />
+                <div className="absolute inset-0 w-12 h-12 border-4 border-transparent rounded-full animate-ping border-t-[#00D9FF] opacity-30" />
               </div>
               <p className="text-gray-500 animate-pulse">Loading your decks...</p>
             </div>
@@ -144,13 +140,13 @@ export default function Library() {
           <div className="fade-in flex items-center justify-center py-20">
             <div className="text-center max-w-md">
               <div className="text-8xl mb-6">📚</div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">No decks yet</h2>
+              <h2 className="text-2xl font-bold text-black mb-2">No decks yet</h2>
               <p className="text-gray-600 mb-8">
                 Start your learning journey by creating your first flashcard deck
               </p>
               <button
                 onClick={handleCreateDeck}
-                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 mx-auto"
+                className="flex items-center gap-2 bg-[#00D9FF] hover:bg-[#00c4e6] text-black px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 mx-auto"
               >
                 <Plus size={24} />
                 Create Your First Deck
@@ -169,9 +165,9 @@ export default function Library() {
                 onMouseLeave={() => setHoveredDeck(null)}
                 onClick={() => navigate(`/studio/${deck.deckId}`)}
                 className={`
-                  relative bg-white rounded-2xl shadow-md border-2 border-gray-100
+                  relative bg-white rounded-2xl shadow-md border-2 border-gray-200
                   cursor-pointer transition-all duration-300 transform
-                  ${hoveredDeck === deck.deckId ? 'scale-105 shadow-2xl border-blue-300' : 'hover:scale-102'}
+                  ${hoveredDeck === deck.deckId ? 'scale-105 shadow-2xl border-[#00D9FF]' : 'hover:scale-102'}
                   ${deletingDeck === deck.deckId ? 'opacity-50 pointer-events-none' : ''}
                 `}
                 style={{ animationDelay: `${index * 0.1}s` }}
@@ -181,17 +177,14 @@ export default function Library() {
                   <div className="absolute inset-0 shimmer pointer-events-none rounded-2xl" />
                 )}
 
-                {/* Brand Color Accent */}
-                <div
-                  className="h-2 rounded-t-2xl"
-                  style={{ backgroundColor: getThemeColor(deck) }}
-                />
+                {/* Cyan Accent Bar */}
+                <div className="h-2 rounded-t-2xl bg-[#00D9FF]" />
 
                 {/* Content */}
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-900 mb-1 line-clamp-2">
+                      <h3 className="text-xl font-bold text-black mb-1 line-clamp-2">
                         {deck.title}
                       </h3>
                       <p className="text-gray-600 text-sm line-clamp-2">
@@ -203,7 +196,7 @@ export default function Library() {
                   {/* Stats */}
                   <div className="flex items-center gap-4 mb-4 text-sm text-gray-500">
                     <div className="flex items-center gap-1">
-                      <span className="font-semibold text-gray-900">{getCardCount(deck)}</span>
+                      <span className="font-semibold text-black">{getCardCount(deck)}</span>
                       <span>cards</span>
                     </div>
                     <div className="w-px h-4 bg-gray-300" />
@@ -222,7 +215,7 @@ export default function Library() {
                     <button
                       onClick={(e) => handleHostSession(deck, e)}
                       disabled={hostingDeck === deck.deckId}
-                      className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-all shadow-md hover:shadow-lg disabled:opacity-50"
+                      className="w-full flex items-center justify-center gap-2 bg-[#00D9FF] hover:bg-[#00c4e6] text-black px-4 py-2 rounded-lg font-medium transition-all shadow-md hover:shadow-lg disabled:opacity-50"
                     >
                       <Users size={16} />
                       {hostingDeck === deck.deckId ? 'Starting...' : 'Host Session'}
@@ -230,14 +223,14 @@ export default function Library() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => navigate(`/studio/${deck.deckId}`)}
-                        className="flex-1 flex items-center justify-center gap-2 bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-2 rounded-lg font-medium transition-colors"
+                        className="flex-1 flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 rounded-lg font-medium transition-colors"
                       >
                         <Edit size={16} />
                         Edit
                       </button>
                       <button
                         onClick={(e) => handleDuplicateDeck(deck.deckId, e)}
-                        className="flex items-center justify-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors"
+                        className="flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 rounded-lg font-medium transition-colors"
                       >
                         <Copy size={16} />
                       </button>

@@ -62,7 +62,7 @@ export default function Lobby() {
   if (!roomCode) return null
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 p-8">
+    <div className="min-h-screen bg-white p-8">
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(20px); }
@@ -101,25 +101,25 @@ export default function Lobby() {
         <div className="fade-in mb-8 text-center">
           <button
             onClick={handleLeave}
-            className="absolute top-8 left-8 flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+            className="absolute top-8 left-8 flex items-center gap-2 text-gray-600 hover:text-white transition-colors"
           >
             <LogOut size={20} />
             Leave
           </button>
 
           <div className="inline-block mb-4">
-            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full border-2 border-white/20">
-              <Users size={24} className="text-white" />
-              <span className="text-white font-medium">
+            <div className="flex items-center gap-3 bg-gray-100 px-6 py-3 rounded-full border-2 border-gray-200">
+              <Users size={24} className="text-[#00D9FF]" />
+              <span className="text-black font-medium">
                 {isHost ? 'Hosting' : 'Joined'} Game
               </span>
             </div>
           </div>
 
-          <h1 className="text-6xl font-bold text-white mb-4">
+          <h1 className="text-6xl font-bold text-black mb-4">
             Waiting Room
           </h1>
-          <p className="text-xl text-white/90">
+          <p className="text-xl text-gray-700">
             {isHost
               ? 'Share the code with your players!'
               : 'Waiting for host to start the game...'}
@@ -128,11 +128,11 @@ export default function Lobby() {
 
         {/* Room Code Display */}
         <div className="fade-in mb-12" style={{ animationDelay: '0.1s' }}>
-          <div className="bg-white/10 backdrop-blur-md rounded-3xl border-2 border-white/20 p-8 text-center">
-            <p className="text-white/80 text-lg mb-4 font-medium">Room Code</p>
+          <div className="bg-gray-50 rounded-3xl border-2 border-gray-200 p-8 text-center shadow-lg">
+            <p className="text-gray-600 text-lg mb-4 font-medium">Room Code</p>
             <div className="flex items-center justify-center gap-4">
-              <div className="bg-white rounded-2xl px-12 py-6 shadow-2xl pulse-animation">
-                <div className="text-6xl font-black tracking-widest text-transparent bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text">
+              <div className="bg-white rounded-2xl px-12 py-6 shadow-2xl pulse-animation border-2 border-[#00D9FF]">
+                <div className="text-6xl font-black tracking-widest text-[#00D9FF]">
                   {roomCode}
                 </div>
               </div>
@@ -142,7 +142,7 @@ export default function Lobby() {
                   p-4 rounded-xl transition-all transform hover:scale-110
                   ${copiedCode
                     ? 'bg-green-500 text-white'
-                    : 'bg-white/20 text-white hover:bg-white/30'
+                    : 'bg-gray-100 text-black hover:bg-gray-200 border-2 border-gray-300'
                   }
                 `}
               >
@@ -150,7 +150,7 @@ export default function Lobby() {
               </button>
             </div>
             {copiedCode && (
-              <p className="text-green-300 font-medium mt-4 fade-in">
+              <p className="text-green-600 font-medium mt-4 fade-in">
                 Code copied to clipboard!
               </p>
             )}
@@ -168,10 +168,10 @@ export default function Lobby() {
 
         {/* Players Grid */}
         <div className="fade-in mb-8" style={{ animationDelay: '0.2s' }}>
-          <div className="bg-white/10 backdrop-blur-md rounded-3xl border-2 border-white/20 p-8">
+          <div className="bg-gray-50 rounded-3xl border-2 border-gray-200 p-8 shadow-lg">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                <Users size={28} />
+              <h2 className="text-2xl font-bold text-black flex items-center gap-2">
+                <Users size={28} className="text-[#00D9FF]" />
                 Players ({players.length})
               </h2>
             </div>
@@ -182,9 +182,9 @@ export default function Lobby() {
                   key={player.id}
                   onClick={() => handlePlayerClick(player.id)}
                   className={`
-                    relative bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-2xl p-6
+                    relative bg-white hover:bg-gray-50 rounded-2xl p-6
                     cursor-pointer transition-all transform hover:scale-105
-                    border-2 border-white/30 fade-in
+                    border-2 border-gray-200 hover:border-[#00D9FF] fade-in shadow-md
                     ${bouncingPlayer === player.id ? 'bounce-animation' : ''}
                   `}
                   style={{ animationDelay: `${0.3 + index * 0.1}s` }}
@@ -197,11 +197,11 @@ export default function Lobby() {
 
                   <div className="text-center">
                     <div className="text-5xl mb-3">{player.avatar}</div>
-                    <p className="text-white font-semibold text-sm truncate">
+                    <p className="text-black font-semibold text-sm truncate">
                       {player.name}
                     </p>
                     {player.isHost && (
-                      <p className="text-yellow-300 text-xs font-medium mt-1">
+                      <p className="text-yellow-600 text-xs font-medium mt-1">
                         Host
                       </p>
                     )}
@@ -214,9 +214,9 @@ export default function Lobby() {
 
               {/* Waiting for players placeholder */}
               {players.length < 4 && (
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border-2 border-dashed border-white/30 flex flex-col items-center justify-center text-center fade-in">
+                <div className="bg-white rounded-2xl p-6 border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-center fade-in shadow-md">
                   <div className="text-4xl mb-2 opacity-50">👥</div>
-                  <p className="text-white/60 text-xs">
+                  <p className="text-gray-500 text-xs">
                     Waiting for more players...
                   </p>
                 </div>
@@ -235,10 +235,9 @@ export default function Lobby() {
                 inline-flex items-center gap-3 px-12 py-6 rounded-2xl font-bold text-xl
                 transition-all transform hover:-translate-y-1 shadow-2xl
                 ${isStarting || players.length < 1
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 pulse-animation'
+                  ? 'bg-gray-400 cursor-not-allowed text-gray-600'
+                  : 'bg-[#00D9FF] hover:bg-[#00c4e6] text-black pulse-animation'
                 }
-                text-white
               `}
             >
               <Play size={28} />
@@ -246,7 +245,7 @@ export default function Lobby() {
             </button>
 
             {players.length < 2 && (
-              <p className="text-white/60 mt-4 text-sm">
+              <p className="text-gray-500 mt-4 text-sm">
                 Tip: You can start with just yourself for testing, but it's more fun with friends!
               </p>
             )}
@@ -256,9 +255,9 @@ export default function Lobby() {
         {/* Player Status */}
         {!isHost && (
           <div className="fade-in text-center" style={{ animationDelay: '0.3s' }}>
-            <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-8 py-4 rounded-2xl border-2 border-white/20">
+            <div className="inline-flex items-center gap-3 bg-gray-100 px-8 py-4 rounded-2xl border-2 border-gray-200 shadow-lg">
               <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-white font-medium">
+              <span className="text-black font-medium">
                 Connected and ready!
               </span>
             </div>
@@ -267,7 +266,7 @@ export default function Lobby() {
 
         {/* Fun Interactions Hint */}
         <div className="mt-8 text-center fade-in" style={{ animationDelay: '0.4s' }}>
-          <p className="text-white/60 text-sm">
+          <p className="text-gray-500 text-sm">
             💡 Click on player avatars to make them bounce!
           </p>
         </div>
