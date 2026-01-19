@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { LocalFlashcardService } from '../services/flashcard-service'
+import { useAuth } from './AuthContext'
 
 const LibraryContext = createContext()
 
@@ -14,12 +15,15 @@ export const useLibrary = () => {
 export const LibraryProvider = ({ children }) => {
   const [decks, setDecks] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [currentUserId] = useState('default_user') // TODO: Replace with actual auth
+  const { user, isAuthenticated } = useAuth()
 
-  // Load decks on mount
+  // Use authenticated user ID or fallback to guest mode
+  const currentUserId = isAuthenticated && user ? user.id : 'guest_user'
+
+  // Load decks when user changes or on mount
   useEffect(() => {
     loadDecks()
-  }, [])
+  }, [currentUserId])
 
   const loadDecks = async () => {
     try {

@@ -2,17 +2,22 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useGame } from '../context/GameContext'
 import { useLibrary } from '../context/LibraryContext'
-import { BookOpen, Play, Users, Plus, Search, Home as HomeIcon, Library, Gamepad2, Trophy, BarChart3 } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
+import { BookOpen, Play, Users, Plus, Search, Home as HomeIcon, Library, Gamepad2, Trophy, LogOut, User } from 'lucide-react'
+import AuthModal from '../components/auth/AuthModal'
 
 export default function Home() {
   const navigate = useNavigate()
   const { joinGame } = useGame()
   const { decks } = useLibrary()
+  const { user, isAuthenticated, logout } = useAuth()
   const [hoveredCard, setHoveredCard] = useState(null)
   const [gameCode, setGameCode] = useState('')
   const [playerName, setPlayerName] = useState('')
   const [isJoining, setIsJoining] = useState(false)
   const [joinError, setJoinError] = useState('')
+  const [showAuthModal, setShowAuthModal] = useState(false)
+  const [showUserMenu, setShowUserMenu] = useState(false)
 
   const handleJoinGame = async (e) => {
     e.preventDefault()
@@ -130,9 +135,56 @@ export default function Home() {
                 className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[#00D9FF] focus:ring-2 focus:ring-[#00D9FF]/20 transition-all"
               />
             </div>
-            <button className="px-6 py-3 bg-[#00D9FF] hover:bg-[#00c4e6] text-black font-semibold rounded-lg transition-colors">
-              Upgrade: free 7-day trial
-            </button>
+
+            {/* Auth Section */}
+            {isAuthenticated ? (
+              <div className="relative">
+                <button
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                >
+                  <span className="text-2xl">{user?.avatar || '👤'}</span>
+                  <span className="font-medium text-gray-700">{user?.name}</span>
+                </button>
+
+                {/* User Menu Dropdown */}
+                {showUserMenu && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
+                    <div className="px-4 py-3 border-b border-gray-200">
+                      <p className="text-sm font-medium text-gray-900">{user?.name}</p>
+                      <p className="text-xs text-gray-500">{user?.email}</p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setShowUserMenu(false)
+                        // Navigate to profile page when implemented
+                      }}
+                      className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-700 hover:bg-gray-50 transition-colors"
+                    >
+                      <User size={16} />
+                      <span>Profile Settings</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        logout()
+                        setShowUserMenu(false)
+                      }}
+                      className="w-full flex items-center gap-2 px-4 py-2 text-left text-red-600 hover:bg-red-50 transition-colors"
+                    >
+                      <LogOut size={16} />
+                      <span>Sign Out</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowAuthModal(true)}
+                className="px-6 py-3 bg-[#00D9FF] hover:bg-[#00c4e6] text-black font-semibold rounded-lg transition-colors"
+              >
+                Login / Sign Up
+              </button>
+            )}
           </div>
         </div>
 
@@ -348,6 +400,12 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+      />
     </div>
   )
 }

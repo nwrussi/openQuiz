@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext'
 import { LibraryProvider } from './context/LibraryContext'
 import { GameProvider } from './context/GameContext'
 import Home from './pages/Home'
@@ -13,22 +14,24 @@ import OpenQuizSessionSummary from './components/ui/SessionSummary'
 function App() {
   return (
     <Router>
-      <GameProvider>
-        <LibraryProvider>
-          <div className="min-h-screen bg-white">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/library" element={<Library />} />
-              <Route path="/studio/:deckId" element={<Studio />} />
-              <Route path="/lobby" element={<Lobby />} />
-              <Route path="/flashcards" element={<OpenQuizFlashcards />} />
-              <Route path="/matching" element={<OpenQuizMatching />} />
-              <Route path="/scoreboard" element={<OpenQuizScoreboard />} />
-              <Route path="/summary" element={<OpenQuizSessionSummary />} />
-            </Routes>
-          </div>
-        </LibraryProvider>
-      </GameProvider>
+      <AuthProvider>
+        <GameProvider>
+          <LibraryProvider>
+            <div className="min-h-screen bg-white">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/library" element={<Library />} />
+                <Route path="/studio/:deckId" element={<Studio />} />
+                <Route path="/lobby" element={<Lobby />} />
+                <Route path="/flashcards" element={<OpenQuizFlashcards />} />
+                <Route path="/matching" element={<OpenQuizMatching />} />
+                <Route path="/scoreboard" element={<OpenQuizScoreboard />} />
+                <Route path="/summary" element={<OpenQuizSessionSummary />} />
+              </Routes>
+            </div>
+          </LibraryProvider>
+        </GameProvider>
+      </AuthProvider>
     </Router>
   )
 }
