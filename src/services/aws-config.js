@@ -1,5 +1,3 @@
-import AWS from 'aws-sdk'
-
 // AWS Configuration
 // These values should be set via environment variables in production
 const AWS_CONFIG = {
@@ -8,18 +6,49 @@ const AWS_CONFIG = {
   secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY,
 }
 
-// Initialize AWS SDK
-if (AWS_CONFIG.accessKeyId && AWS_CONFIG.secretAccessKey) {
-  AWS.config.update(AWS_CONFIG)
+// Lazy-load AWS SDK only when credentials are available
+let AWS = null
+let dynamoDBInstance = null
+let s3Instance = null
+
+// Initialize AWS SDK only when credentials are provided
+const initializeAWS = async () => {
+  if (!AWS && AWS_CONFIG.accessKeyId && AWS_CONFIG.secretAccessKey) {
+    try {
+      AWS = (await import('aws-sdk')).default
+      AWS.config.update(AWS_CONFIG)
+      dynamoDBInstance = new AWS.DynamoDB.DocumentClient()
+      s3Instance = new AWS.S3()
+    } catch (error) {
+      console.warn('AWS SDK not available or failed to initialize:', error)
+    }
+  }
 }
 
-// DynamoDB Document Client for easier data operations
-export const dynamoDB = new AWS.DynamoDB.DocumentClient()
+// Export getters that initialize on-demand
+export const getDynamoDB = async () => {
+  await initializeAWS()
+  return dynamoDBInstance
+}
 
-// S3 Client for file storage (deck sharing, images, etc.)
-export const s3 = new AWS.S3()
+export const getS3 = async () => {
+  await initializeAWS()
+  return s3Instance
+}
+
+// Mock implementations for when AWS is not available
+export const dynamoDB = {
+  query: () => ({ promise: () => Promise.reject(new Error('AWS not configured')) }),
+  get: () => ({ promise: () => Promise.reject(new Error('AWS not configured')) }),
+  put: () => ({ promise: () => Promise.reject(new Error('AWS not configured')) }),
+  update: () => ({ promise: () => Promise.reject(new Error('AWS not configured')) }),
+  delete: () => ({ promise: () => Promise.reject(new Error('AWS not configured')) }),
+}
+
+export const s3 = {
+  putObject: () => ({ promise: () => Promise.reject(new Error('AWS not configured')) }),
+  getObject: () => ({ promise: () => Promise.reject(new Error('AWS not configured')) }),
+}
 
 // API Gateway endpoint (configure this when backend is ready)
 export const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT || 'https://api.openquiz.local'
-
-export default AWS
