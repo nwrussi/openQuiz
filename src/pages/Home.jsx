@@ -76,7 +76,7 @@ export default function Home() {
   ]
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-8">
+    <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-white">
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(20px); }
@@ -84,7 +84,7 @@ export default function Home() {
         }
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
+          50% { transform: translateY(-10px); }
         }
         @keyframes shimmer {
           0% { background-position: -1000px 0; }
@@ -101,7 +101,7 @@ export default function Home() {
           animation: float 3s ease-in-out infinite;
         }
         .shimmer {
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+          background: linear-gradient(90deg, transparent, rgba(0,217,255,0.2), transparent);
           background-size: 1000px 100%;
           animation: shimmer 2s infinite;
         }
@@ -110,15 +110,15 @@ export default function Home() {
         }
       `}</style>
 
-      {/* Header */}
+      {/* Header with OpenStudy branding */}
       <div className="fade-in mb-12 text-center">
-        <h1 className="text-7xl font-bold text-white mb-4 float">
-          Open<span className="text-yellow-300">Quiz</span>
+        <h1 className="text-8xl font-bold mb-4 float" style={{ fontFamily: 'Georgia, serif' }}>
+          <span className="text-black">open</span><span className="text-[#00D9FF]">STUDY</span>
         </h1>
-        <p className="text-xl text-white/90 font-medium">
+        <p className="text-2xl text-gray-700 font-medium mb-2">
           Free • Open Source • Collaborative Learning
         </p>
-        <p className="text-lg text-white/70 mt-2">
+        <p className="text-lg text-gray-600">
           A modern flashcard platform built for students, by students
         </p>
       </div>
@@ -128,7 +128,7 @@ export default function Home() {
         {['No Ads', 'No Subscriptions', 'Offline First', 'Share Freely'].map((feature, i) => (
           <div
             key={i}
-            className="bg-white/20 backdrop-blur-md px-6 py-2 rounded-full text-white font-medium border border-white/30"
+            className="bg-[#00D9FF]/10 border-2 border-[#00D9FF]/30 px-6 py-2 rounded-full text-gray-800 font-semibold hover:bg-[#00D9FF]/20 transition-all"
           >
             {feature}
           </div>
@@ -137,20 +137,20 @@ export default function Home() {
 
       {/* JOIN GAME SECTION (Social Gateway) */}
       <div className="w-full max-w-2xl mb-12 fade-in" style={{ animationDelay: '0.3s' }}>
-        <div className="relative bg-white/10 backdrop-blur-md rounded-3xl border-2 border-white/30 p-8 overflow-hidden">
+        <div className="relative bg-gray-50 rounded-3xl border-2 border-gray-200 p-8 overflow-hidden shadow-lg">
           {/* Decorative rings on focus */}
           {codeFocused && (
             <>
-              <div className="absolute inset-0 border-4 border-white/30 rounded-3xl pulse-ring" />
-              <div className="absolute inset-0 border-4 border-white/30 rounded-3xl pulse-ring" style={{ animationDelay: '0.5s' }} />
+              <div className="absolute inset-0 border-4 border-[#00D9FF]/30 rounded-3xl pulse-ring" />
+              <div className="absolute inset-0 border-4 border-[#00D9FF]/30 rounded-3xl pulse-ring" style={{ animationDelay: '0.5s' }} />
             </>
           )}
 
           <div className="relative z-10">
-            <h2 className="text-3xl font-bold text-white mb-2 text-center">
+            <h2 className="text-3xl font-bold text-black mb-2 text-center">
               Join a Live Session
             </h2>
-            <p className="text-white/80 text-center mb-6">
+            <p className="text-gray-600 text-center mb-6">
               Enter a game code to join your friends
             </p>
 
@@ -164,7 +164,7 @@ export default function Home() {
                   onBlur={() => setCodeFocused(false)}
                   placeholder="ENTER GAME CODE"
                   maxLength={4}
-                  className="w-full text-center text-4xl font-black tracking-widest px-6 py-6 rounded-2xl border-4 border-transparent focus:border-blue-500 focus:ring-4 focus:ring-blue-500/50 transition-all bg-white text-gray-900 placeholder-gray-400 uppercase"
+                  className="w-full text-center text-4xl font-black tracking-widest px-6 py-6 rounded-2xl border-4 border-gray-300 focus:border-[#00D9FF] focus:ring-4 focus:ring-[#00D9FF]/30 transition-all bg-white text-gray-900 placeholder-gray-400 uppercase"
                 />
               </div>
 
@@ -175,13 +175,13 @@ export default function Home() {
                   onChange={(e) => setPlayerName(e.target.value)}
                   placeholder="Your Name"
                   maxLength={20}
-                  className="w-full text-center text-xl px-6 py-4 rounded-2xl border-2 border-white/30 focus:border-white focus:ring-4 focus:ring-white/30 transition-all bg-white/20 text-white placeholder-white/50"
+                  className="w-full text-center text-xl px-6 py-4 rounded-2xl border-2 border-gray-300 focus:border-[#00D9FF] focus:ring-4 focus:ring-[#00D9FF]/30 transition-all bg-white text-gray-900 placeholder-gray-500"
                 />
               </div>
 
               {joinError && (
-                <div className="bg-red-500/20 border-2 border-red-500/50 rounded-xl p-3 text-center">
-                  <p className="text-red-200 font-medium">{joinError}</p>
+                <div className="bg-red-100 border-2 border-red-300 rounded-xl p-3 text-center">
+                  <p className="text-red-700 font-medium">{joinError}</p>
                 </div>
               )}
 
@@ -191,10 +191,9 @@ export default function Home() {
                 className={`
                   w-full py-4 rounded-2xl font-bold text-xl transition-all transform
                   ${isJoining || !gameCode.trim() || !playerName.trim()
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 hover:scale-105 shadow-lg hover:shadow-xl'
+                    ? 'bg-gray-300 cursor-not-allowed text-gray-500'
+                    : 'bg-[#00D9FF] hover:bg-[#00c4e6] hover:scale-105 shadow-lg hover:shadow-xl text-black'
                   }
-                  text-white
                 `}
               >
                 {isJoining ? 'Joining...' : 'Join Game'}
@@ -204,17 +203,17 @@ export default function Home() {
             <div className="mt-6 text-center">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-white/30"></div>
+                  <div className="w-full border-t border-gray-300"></div>
                 </div>
                 <div className="relative flex justify-center">
-                  <span className="bg-transparent px-4 text-white/60 text-sm font-medium">OR</span>
+                  <span className="bg-gray-50 px-4 text-gray-500 text-sm font-medium">OR</span>
                 </div>
               </div>
             </div>
 
             <button
               onClick={() => navigate('/library')}
-              className="mt-4 w-full py-4 rounded-2xl font-bold text-lg bg-white/20 hover:bg-white/30 text-white border-2 border-white/30 hover:border-white/50 transition-all"
+              className="mt-4 w-full py-4 rounded-2xl font-bold text-lg bg-black hover:bg-gray-800 text-white border-2 border-black transition-all"
             >
               📚 Host a Session from Your Library
             </button>
@@ -231,10 +230,10 @@ export default function Home() {
             onMouseLeave={() => setHoveredCard(null)}
             onClick={() => navigate(mode.path)}
             className={`
-              relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-md
-              border-2 border-white/20 p-8 cursor-pointer
-              transition-all duration-300 transform
-              ${hoveredCard === mode.id ? 'scale-105 border-white/40 shadow-2xl' : 'hover:scale-102'}
+              relative overflow-hidden rounded-2xl bg-white
+              border-2 border-gray-200 p-8 cursor-pointer
+              transition-all duration-300 transform shadow-md
+              ${hoveredCard === mode.id ? 'scale-105 border-[#00D9FF] shadow-2xl' : 'hover:scale-102'}
             `}
             style={{ animationDelay: `${0.5 + index * 0.1}s` }}
           >
@@ -243,18 +242,18 @@ export default function Home() {
               <div className="absolute inset-0 shimmer pointer-events-none" />
             )}
 
-            {/* Gradient overlay */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${mode.color} opacity-0 transition-opacity duration-300 ${hoveredCard === mode.id ? 'opacity-20' : ''}`} />
+            {/* Cyan overlay on hover */}
+            <div className={`absolute inset-0 bg-[#00D9FF] opacity-0 transition-opacity duration-300 ${hoveredCard === mode.id ? 'opacity-5' : ''}`} />
 
             {/* Content */}
             <div className="relative z-10">
               <div className="text-6xl mb-4">{mode.icon}</div>
-              <h3 className="text-2xl font-bold text-white mb-2">{mode.title}</h3>
-              <p className="text-white/80">{mode.description}</p>
+              <h3 className="text-2xl font-bold text-black mb-2">{mode.title}</h3>
+              <p className="text-gray-600">{mode.description}</p>
 
               {/* Arrow on hover */}
               <div className={`
-                mt-4 flex items-center text-white font-medium
+                mt-4 flex items-center text-[#00D9FF] font-bold
                 transition-all duration-300
                 ${hoveredCard === mode.id ? 'translate-x-2 opacity-100' : 'translate-x-0 opacity-0'}
               `}>
@@ -267,26 +266,26 @@ export default function Home() {
 
       {/* Stats */}
       <div className="mt-12 flex gap-8 text-center fade-in" style={{ animationDelay: '0.8s' }}>
-        <div className="text-white">
-          <div className="text-3xl font-bold">100%</div>
-          <div className="text-white/70">Free Forever</div>
+        <div className="text-black">
+          <div className="text-3xl font-bold text-[#00D9FF]">100%</div>
+          <div className="text-gray-600">Free Forever</div>
         </div>
-        <div className="w-px bg-white/30" />
-        <div className="text-white">
-          <div className="text-3xl font-bold">0</div>
-          <div className="text-white/70">Ads</div>
+        <div className="w-px bg-gray-300" />
+        <div className="text-black">
+          <div className="text-3xl font-bold text-[#00D9FF]">0</div>
+          <div className="text-gray-600">Ads</div>
         </div>
-        <div className="w-px bg-white/30" />
-        <div className="text-white">
-          <div className="text-3xl font-bold">∞</div>
-          <div className="text-white/70">Flashcards</div>
+        <div className="w-px bg-gray-300" />
+        <div className="text-black">
+          <div className="text-3xl font-bold text-[#00D9FF]">∞</div>
+          <div className="text-gray-600">Flashcards</div>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="mt-12 text-center text-white/60 fade-in" style={{ animationDelay: '1s' }}>
+      <div className="mt-12 text-center text-gray-500 fade-in" style={{ animationDelay: '1s' }}>
         <p>Built with ❤️ by the open source community</p>
-        <p className="mt-2 text-sm">Powered by AWS • React • Tailwind</p>
+        <p className="mt-2 text-sm">Powered by React • Tailwind • LocalStorage</p>
       </div>
     </div>
   )

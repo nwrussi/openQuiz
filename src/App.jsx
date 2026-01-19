@@ -15,7 +15,7 @@ function App() {
     <Router>
       <GameProvider>
         <LibraryProvider>
-          <div className="min-h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-red-500">
+          <div className="min-h-screen bg-white">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/library" element={<Library />} />
