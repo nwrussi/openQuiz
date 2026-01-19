@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 // Card flip component with 3D animation
 const FlashCard = ({ front, back, isFlipped, onFlip }) => (
@@ -248,7 +248,7 @@ const CardCompleteAnimation = ({ show, isCorrect }) => {
 
 // Main flashcard game component
 export default function OpenQuizFlashcards() {
-  const [cards, setCards] = useState([
+  const [cards, _setCards] = useState([
     { id: 1, front: 'What is the capital of France?', back: 'Paris', mastery: 0 },
     { id: 2, front: 'What is 2 + 2?', back: '4', mastery: 1 },
     { id: 3, front: 'Who wrote Romeo and Juliet?', back: 'William Shakespeare', mastery: 2 },
@@ -275,7 +275,7 @@ export default function OpenQuizFlashcards() {
     }
   };
 
-  const handleSwipe = (direction, card) => {
+  const handleSwipe = (direction, _card) => {
     const isCorrect = direction === 'right';
     
     setCardAnimation({ show: true, isCorrect });
