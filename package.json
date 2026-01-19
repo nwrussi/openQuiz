@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "start": "node launcher.js",
+    "launch": "node launcher.js"
   },
   "dependencies": {
     "react": "^18.3.1",
