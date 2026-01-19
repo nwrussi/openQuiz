@@ -26,6 +26,8 @@ OpenQuiz is a modern flashcard learning platform designed to be:
 > **🪟 Windows Users:** See [WINDOWS_SETUP.md](WINDOWS_SETUP.md) for a complete step-by-step guide with troubleshooting!
 >
 > **⚡ Super Quick:** See [QUICKSTART.txt](QUICKSTART.txt) for 5-minute setup instructions.
+>
+> **📚 Creating Decks:** See [DECK_CREATION_GUIDE.md](DECK_CREATION_GUIDE.md) to learn how to create and manage your study materials!
 
 ### Prerequisites
 

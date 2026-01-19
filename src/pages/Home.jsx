@@ -69,7 +69,7 @@ export default function Home() {
       `}</style>
 
       {/* Header */}
-      <div className="fade-in mb-12 text-center">
+      <div className="fade-in mb-8 text-center">
         <h1 className="text-7xl font-bold text-white mb-4 float">
           Open<span className="text-yellow-300">Quiz</span>
         </h1>
@@ -79,6 +79,18 @@ export default function Home() {
         <p className="text-lg text-white/70 mt-2">
           A modern flashcard platform built for students, by students
         </p>
+      </div>
+
+      {/* My Library Button */}
+      <div className="mb-8 fade-in" style={{ animationDelay: '0.1s' }}>
+        <button
+          onClick={() => navigate('/library')}
+          className="px-8 py-4 bg-white/90 hover:bg-white text-purple-600 rounded-2xl font-bold text-lg transition-all hover:scale-105 shadow-2xl flex items-center gap-3"
+        >
+          <span className="text-2xl">📚</span>
+          <span>My Library</span>
+          <span className="text-sm bg-purple-100 px-3 py-1 rounded-full">Create & Study</span>
+        </button>
       </div>
 
       {/* Feature Pills */}

@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
+import Library from './pages/Library'
+import DeckEditor from './pages/DeckEditor'
 import OpenQuizFlashcards from './components/game-modes/Flashcards'
 import OpenQuizMatching from './components/game-modes/Matching'
 import OpenQuizScoreboard from './components/ui/Scoreboard'
@@ -11,6 +13,8 @@ function App() {
       <div className="min-h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-red-500">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/library" element={<Library />} />
+          <Route path="/deck/:deckId/edit" element={<DeckEditor />} />
           <Route path="/flashcards" element={<OpenQuizFlashcards />} />
           <Route path="/matching" element={<OpenQuizMatching />} />
           <Route path="/scoreboard" element={<OpenQuizScoreboard />} />
