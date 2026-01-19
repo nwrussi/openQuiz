@@ -8,7 +8,7 @@ const FlashCard = ({ front, back, isFlipped, onFlip }) => (
   >
     <div className={`absolute inset-0 transition-transform duration-500 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
       {/* Front */}
-      <div className="absolute inset-0 backface-hidden bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-xl p-6 flex flex-col">
+      <div className="absolute inset-0 backface-hidden bg-gradient-to-br from-[#00D9FF] to-[#00c4e6] rounded-2xl shadow-xl p-6 flex flex-col">
         <div className="text-white/60 text-sm font-medium mb-2">Question</div>
         <div className="flex-1 flex items-center justify-center">
           <p className="text-white text-2xl font-bold text-center">{front}</p>
@@ -16,7 +16,7 @@ const FlashCard = ({ front, back, isFlipped, onFlip }) => (
         <div className="text-white/40 text-sm text-center">Tap to reveal</div>
       </div>
       {/* Back */}
-      <div className="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-xl p-6 flex flex-col">
+      <div className="absolute inset-0 backface-hidden rotate-y-180 bg-black rounded-2xl shadow-xl p-6 flex flex-col">
         <div className="text-white/60 text-sm font-medium mb-2">Answer</div>
         <div className="flex-1 flex items-center justify-center">
           <p className="text-white text-2xl font-bold text-center">{back}</p>
@@ -96,7 +96,7 @@ const SwipeableCard = ({ card, onSwipe, isTop, style, zIndex }) => {
           </div>
           <div 
             className={`absolute top-4 right-4 px-4 py-2 rounded-lg font-bold text-xl transition-opacity ${
-              position.x > 30 ? 'opacity-100 bg-emerald-500 text-white' : 'opacity-0'
+              position.x > 30 ? 'opacity-100 bg-[#00D9FF] text-white' : 'opacity-0'
             }`}
           >
             ✓ Got it
@@ -124,8 +124,8 @@ const ConfidenceButtons = ({ onRate, disabled }) => {
   const buttons = [
     { label: 'Again', color: 'bg-red-500 hover:bg-red-600', emoji: '😕', value: 1 },
     { label: 'Hard', color: 'bg-orange-500 hover:bg-orange-600', emoji: '🤔', value: 2 },
-    { label: 'Good', color: 'bg-blue-500 hover:bg-blue-600', emoji: '😊', value: 3 },
-    { label: 'Easy', color: 'bg-emerald-500 hover:bg-emerald-600', emoji: '😎', value: 4 },
+    { label: 'Good', color: 'bg-gray-600 hover:bg-gray-700', emoji: '😊', value: 3 },
+    { label: 'Easy', color: 'bg-[#00D9FF] hover:bg-[#00c4e6]', emoji: '😎', value: 4 },
   ];
 
   return (
@@ -189,8 +189,8 @@ const MasteryBadge = ({ level }) => {
   const levels = [
     { name: 'New', color: 'bg-gray-400', icon: '🌱' },
     { name: 'Learning', color: 'bg-orange-400', icon: '📚' },
-    { name: 'Reviewing', color: 'bg-blue-400', icon: '🔄' },
-    { name: 'Mastered', color: 'bg-emerald-400', icon: '⭐' },
+    { name: 'Reviewing', color: 'bg-gray-400', icon: '🔄' },
+    { name: 'Mastered', color: 'bg-[#00D9FF]', icon: '⭐' },
   ];
   const current = levels[Math.min(level, levels.length - 1)];
 
@@ -322,7 +322,7 @@ export default function OpenQuizFlashcards() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-purple-50 p-6">
+    <div className="min-h-screen bg-white p-6">
       <style>{`
         .perspective-1000 { perspective: 1000px; }
         .transform-style-3d { transform-style: preserve-3d; }
@@ -373,7 +373,7 @@ export default function OpenQuizFlashcards() {
       <div className="max-w-md mx-auto space-y-6">
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold text-black">
             OpenQuiz
           </h1>
           <p className="text-gray-500">Flashcard Mode</p>
@@ -396,7 +396,7 @@ export default function OpenQuizFlashcards() {
           <button
             onClick={() => setMode('swipe')}
             className={`px-4 py-2 rounded-lg font-medium transition-all ${
-              mode === 'swipe' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              mode === 'swipe' ? 'bg-[#00D9FF] text-black font-semibold' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
             👆 Swipe Mode
@@ -404,7 +404,7 @@ export default function OpenQuizFlashcards() {
           <button
             onClick={() => setMode('classic')}
             className={`px-4 py-2 rounded-lg font-medium transition-all ${
-              mode === 'classic' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              mode === 'classic' ? 'bg-[#00D9FF] text-black font-semibold' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
             🎯 Classic Mode
