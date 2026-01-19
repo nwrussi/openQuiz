@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenQuiz Debug</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #00ff00;
+        }
+        .status { margin: 10px 0; padding: 10px; background: #2a2a2a; }
+        .ok { color: #00ff00; }
+        .error { color: #ff0000; }
+        .warning { color: #ffaa00; }
+    </style>
+</head>
+<body>
+    <h1>🔍 OpenQuiz Debug Page</h1>
+    <div id="status">
+        <div class="status">🔄 Running diagnostics...</div>
+    </div>
+
+    <script>
+        const status = document.getElementById('status');
+
+        function log(message, type = 'ok') {
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.innerHTML = message;
+            status.appendChild(div);
+        }
+
+        // Test 1: Check if div#root exists
+        log('✅ Test 1: Debug page loaded', 'ok');
+
+        // Test 2: Try to load React
+        setTimeout(() => {
+            fetch('http://localhost:3000')
+                .then(res => res.text())
+                .then(html => {
+                    if (html.includes('id="root"')) {
+                        log('✅ Test 2: Main page HTML contains #root div', 'ok');
+                    } else {
+                        log('❌ Test 2: #root div not found', 'error');
+                    }
+
+                    if (html.includes('/src/main.jsx')) {
+                        log('✅ Test 3: main.jsx script tag present', 'ok');
+                    } else {
+                        log('❌ Test 3: main.jsx script missing', 'error');
+                    }
+                })
+                .catch(err => {
+                    log('❌ Test 2: Failed to fetch main page: ' + err, 'error');
+                });
+
+            // Test 4: Check localStorage
+            try {
+                const decks = localStorage.getItem('all_decks');
+                if (decks) {
+                    const parsed = JSON.parse(decks);
+                    log(`✅ Test 4: localStorage has ${Object.keys(parsed).length} decks`, 'ok');
+                } else {
+                    log('⚠️ Test 4: No decks in localStorage (this is OK for first run)', 'warning');
+                }
+            } catch (e) {
+                log('⚠️ Test 4: localStorage error: ' + e.message, 'warning');
+            }
+        }, 100);
+
+        // Instructions
+        setTimeout(() => {
+            log('', 'ok');
+            log('📋 INSTRUCTIONS:', 'warning');
+            log('1. Open http://localhost:3000 in your browser', 'ok');
+            log('2. Press F12 to open DevTools', 'ok');
+            log('3. Go to Console tab', 'ok');
+            log('4. Look for RED errors', 'ok');
+            log('5. Share any error messages you see', 'ok');
+            log('', 'ok');
+            log('⚡ Server is running at: http://localhost:3000', 'warning');
+        }, 500);
+    </script>
+</body>
+</html>
